@@ -38,3 +38,4 @@ python grey_lines/main.py
 
 ![in](img/in.png)
 ![out](img/out.svg)
+![out2](img/out2.svg)
