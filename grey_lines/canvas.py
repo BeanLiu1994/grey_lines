@@ -113,14 +113,14 @@ class canvas:
         return ret
 
     @staticmethod
-    def rectangle_canvas(w:int, h:int, step_w: int = None, step_h:int = None):
-        step_w = step_w or 1
-        step_h = step_h or 1
+    def rectangle_canvas(w:int, h:int, split_w: int = None, split_h:int = None):
+        split_w = split_w or 20
+        split_h = split_h or 20
         dots = []
         i = 0.5
         j = 0.5
-        xlist = np.linspace(0.5, w+0.5, num=10, endpoint=True)
-        ylist = np.linspace(0.5, h+0.5, num=10, endpoint=True)
+        xlist = np.linspace(0.5, w+0.5, num=split_w, endpoint=True)
+        ylist = np.linspace(0.5, h+0.5, num=split_h, endpoint=True)
         for idx, i in enumerate(xlist):
             if idx == len(xlist)-1:
                 continue
