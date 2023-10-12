@@ -6,9 +6,7 @@ Draw a photo using lines with opacity.
 
 Each line contributes some intensity to each pixel, and each pixel is from the input image. This can be treated as a constrained linear problem. Assume there are n lines and m pixels to fit. The equation should be like:
 
-```
-$$\text{argmin}_(x) \|\|Ax - b\|\|₂, \text{s.t. } x \geq 0$$
-```
+$$\arg \underset{x}{\mathop{min}} \|Ax - b\|₂, \text{s.t. } x \geq 0$$
 
 In this equation, x is a vector and x_i means intensity for the i-th line, A is the line to pixel contribution matrix, and b is the vector of input image intensity.
 
