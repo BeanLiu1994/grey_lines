@@ -19,6 +19,13 @@ The input is an image and canvas configuration. In this code, there is a rectang
 Ignore the non-negative constraint to improve solve speed.
 If problem is too large, speed is not very fast.
 
+# build
+
+```
+poetry shell
+pyinstaller --onefile grey_lines/main.py --name linedraw
+```
+
 # how to use
 
 In your python>=3.11 env (venv or other), run
