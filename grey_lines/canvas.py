@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import math
 import numpy as np
+import hashlib
 
 @dataclass
 class dot:
@@ -64,6 +65,15 @@ class canvas:
     edge_dots: list
     img_corner_lt: dot
     img_corner_rb: dot
+
+    def hash(self):
+        data = ""
+        data += f"len:{len(self.edge_dots)}"
+        for idx, d in enumerate(self.edge_dots):
+            data += f"{idx}:({d.x},{d.y})"
+        data += f"lt:({self.img_corner_lt.x}, {self.img_corner_lt.y})"
+        data += f"rb:({self.img_corner_rb.x}, {self.img_corner_rb.y})"
+        return hashlib.sha256(data.encode()).hexdigest()
 
     def edge_dots_cnt(self):
         return len(self.edge_dots)

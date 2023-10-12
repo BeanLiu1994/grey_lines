@@ -6,10 +6,12 @@ import click
 @click.command()
 @click.option("-c", "--canvas_type", help="canvas type, circle or rect")
 @click.option("-d", "--density", type=float, default=4.0, help="may be extremely slow if too large")
+@click.option("-f", "--fixed", type=int, default=0, help="fixed size (width)")
 @click.argument("path")
 @click.argument("output_path")
-def cli(canvas_type, path, density, output_path):
-    sz, data, scale = input.load_image(os.path.expanduser(path))
+def cli(canvas_type, path, density, fixed, output_path):
+    max_w = 300
+    sz, data, scale = input.load_image(os.path.expanduser(path), max_w)
     if canvas_type == "circle":
         cvs = canvas.canvas.circle_canvas(sz[0], sz[1], int(density * 30) + 1)
     else:
@@ -26,7 +28,9 @@ def cli(canvas_type, path, density, output_path):
     
     output_path = os.path.expanduser(output_path)
     output_path = process_path(output_path)
-    output.save_svg(output_path, cvs, result, 1/scale)
+    if fixed:
+        inv_scale = fixed / max_w
+    output.save_svg(output_path, cvs, result, inv_scale)
     click.echo(f"saved to {output_path}")
 
 

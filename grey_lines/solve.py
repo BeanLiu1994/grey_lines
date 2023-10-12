@@ -1,15 +1,18 @@
 from grey_lines.canvas import canvas
 from dataclasses import dataclass
 import numpy as np
-from scipy.sparse import coo_matrix
+from scipy.sparse import coo_matrix, save_npz, load_npz
 from scipy.sparse.linalg import spsolve
 import cvxpy as cp
+import os
+import shutil
 from tqdm import tqdm
 
 @dataclass
 class solver_config:
     dispersion: float = 3.0
     normalizer: float = 0.1
+    cache_dir: str = "./cache/"
 
 
 default_solver_config = solver_config()
@@ -20,7 +23,19 @@ class solver:
         self._canvas = _canvas
         self.prepare_canvas(config=default_solver_config)
 
-    def prepare_canvas(self, config:solver_config):
+    def get_relation_matrix_from_cache(self, config:solver_config):
+        file = os.path.expanduser(os.path.join(config.cache_dir, f"mat_{self._canvas.hash()}.npz"))
+        if os.path.isfile(file):
+            print(f"use cache file {file}")
+            return load_npz(file)
+        mat = self.get_relation_matrix(config)
+        if os.path.isdir(config.cache_dir):
+            shutil.rmtree(config.cache_dir)
+        os.mkdir(config.cache_dir)
+        save_npz(file, mat)
+        return mat
+
+    def get_relation_matrix(self, config:solver_config):
         if self._canvas.edge_dots_cnt() < 3:
             raise RuntimeError("should have more than 3 edge dots")
         lines = self._canvas.lines()
@@ -34,7 +49,10 @@ class solver:
                 rows.append(px_index)
                 cols.append(ln_index)
                 values.append(1/(1+dot[1]))
-        self.relation_matrix = coo_matrix((values, (rows, cols)), shape=(self._canvas.canvas_pixel_cnt(), self._canvas.lines_cnt()))
+        return coo_matrix((values, (rows, cols)), shape=(self._canvas.canvas_pixel_cnt(), self._canvas.lines_cnt()))
+
+    def prepare_canvas(self, config:solver_config):
+        self.relation_matrix = self.get_relation_matrix_from_cache(config)
         self.relation_matrix_T = self.relation_matrix.transpose()
         self.normal_matrix = self.relation_matrix_T @ self.relation_matrix + np.eye(self._canvas.lines_cnt()) * config.normalizer
 
