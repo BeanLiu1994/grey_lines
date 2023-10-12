@@ -35,3 +35,6 @@ in your python>=3.11 env (venv or other), run
 poetry install
 python grey_lines/main.py
 ```
+
+![in](img/in.png)
+![out](img/out.svg)
