@@ -39,5 +39,7 @@ linedraw in.png out.svg
 ```
 
 ![in](img/in.png)
-![out](img/out.svg)
-![out2](img/out2.svg)
+![out](img/out.png)
+[out](img/out.svg)
+![out2](img/out2.png)
+[out2](img/out2.svg)
