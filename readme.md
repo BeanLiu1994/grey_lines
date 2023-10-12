@@ -2,7 +2,9 @@
 
 Draw a photo using lines with opacity.
 
-Although I have come up with this implementation, I do not know the style name of this image. If you know the name of this image style, please let me know.
+Computational String-Art resources:
+https://www.youtube.com/watch?v=WGccIFf6MF8
+https://en.wikipedia.org/wiki/String_art
 
 # how
 
