@@ -6,7 +6,7 @@ if __name__ == "__main__":
     sz, data, scale = input.load_image(os.path.expanduser("~/yu.png"))
 
     print(sz)
-    cvs = canvas.canvas.rectangle_canvas(sz[0], sz[1], 20, 20)
+    cvs = canvas.canvas.rectangle_canvas(sz[0], sz[1], 25, 25)
     print(cvs.edge_dots_cnt())
     print(cvs.lines_cnt())
     print(cvs.canvas_pixel_cnt())
