@@ -12,6 +12,7 @@ scipy = "^1.11.3"
 tqdm = "^4.66.1"
 svgwrite = "^1.4.3"
 cvxpy = "^1.3.2"
+click = "^8.1.7"
 
 [tool.poetry.dev-dependencies]
 
@@ -20,6 +21,8 @@ name = "mirrors"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 priority = "default"
 
+[tool.poetry.scripts]
+linedraw = "grey_lines.main:cli"
 
 [tool.poetry.group.dev.dependencies]
 matplotlib = "^3.8.0"
