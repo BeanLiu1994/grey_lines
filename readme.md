@@ -2,6 +2,8 @@
 
 Draw a photo using lines with opacity.
 
+Although I have come up with this implementation, I do not know the style name of this image. If you know the name of this image style, please let me know.
+
 # how
 
 Each line contributes some intensity to each pixel, and each pixel is from the input image. This can be treated as a constrained linear problem. Assume there are n lines and m pixels to fit. The equation should be like:

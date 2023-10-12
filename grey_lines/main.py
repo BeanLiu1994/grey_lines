@@ -28,6 +28,7 @@ def cli(canvas_type, path, density, fixed, output_path):
     
     output_path = os.path.expanduser(output_path)
     output_path = process_path(output_path)
+    inv_scale = 1 / scale
     if fixed:
         inv_scale = fixed / max_w
     output.save_svg(output_path, cvs, result, inv_scale)
