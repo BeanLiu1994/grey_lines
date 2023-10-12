@@ -4,8 +4,8 @@ import numpy as np
 import click
 
 @click.command()
-@click.option("-c", "--canvas_type", help="canvas type, circle or rect")
-@click.option("-d", "--density", type=float, default=4.0, help="may be extremely slow if too large")
+@click.option("-c", "--canvas_type", default="rect", show_default=True, help="canvas type, circle or rect")
+@click.option("-d", "--density", type=float, default=4.0, show_default=True, help="may be extremely slow if too large")
 @click.option("-f", "--fixed", type=int, default=0, help="fixed size (width)")
 @click.argument("path")
 @click.argument("output_path")
