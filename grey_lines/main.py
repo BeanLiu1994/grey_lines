@@ -3,10 +3,10 @@ import os
 import numpy as np
 
 if __name__ == "__main__":
-    sz, data = input.load_image(os.path.expanduser("~/dou.png"))
+    sz, data, scale = input.load_image(os.path.expanduser("~/yu.png"))
 
     print(sz)
-    cvs = canvas.canvas.rectangle_canvas(sz[0], sz[1])
+    cvs = canvas.canvas.rectangle_canvas(sz[0], sz[1], 20, 20)
     print(cvs.edge_dots_cnt())
     print(cvs.lines_cnt())
     print(cvs.canvas_pixel_cnt())
@@ -17,4 +17,4 @@ if __name__ == "__main__":
     result = sv.solve(data)
     print(result)
     
-    output.save_svg("out.svg", cvs, result)
+    output.save_svg("out.svg", cvs, result, 1/scale)

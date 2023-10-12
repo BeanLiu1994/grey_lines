@@ -114,8 +114,8 @@ class canvas:
 
     @staticmethod
     def rectangle_canvas(w:int, h:int, split_w: int = None, split_h:int = None):
-        split_w = split_w or 20
-        split_h = split_h or 20
+        split_w = split_w or 10
+        split_h = split_h or 10
         dots = []
         i = 0.5
         j = 0.5

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import spsolve
+import cvxpy as cp
 from tqdm import tqdm
 
 @dataclass
@@ -43,3 +44,24 @@ class solver:
         b = self.relation_matrix_T @ np.array(input)
         coeff = spsolve(self.normal_matrix, b)
         return coeff
+    
+
+class solver2(solver):
+    def __init__(self, _canvas: canvas):
+        super().__init__(_canvas)
+
+    def solve(self, input):
+        if self._canvas.canvas_pixel_cnt() != len(input):
+            raise RuntimeError("input size might mismatch")
+        A = self.normal_matrix
+        b = self.relation_matrix_T @ np.array(input)
+        # Define the variable x
+        x = cp.Variable(A.shape[1], nonneg=True)
+        # Define the objective function and the problem
+        objective = cp.Minimize(cp.norm(A @ x - b, 2))
+        constraints = [x >= 0]
+        problem = cp.Problem(objective, constraints)
+
+        # Solve the problem
+        problem.solve(solver=cp.SCS)
+        return x.value
