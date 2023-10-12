@@ -18,6 +18,13 @@ $$\text{argmin}_(x) \|\|Ax - b\|\|₂, \text{s.t. } x \geq 0$$
 
 in which x is a vector and x_i means intensity for i-th line, A is line to pixel contribution matrix, and b is vector of input image intensity.
 
+# input
+
+input is a image and canvas configuration, in this code there is a rect and circle canvas that for easy use.
+
+canvas contains dots between which i can draw lines, and image area indicates where the input image should be placed.
+
+you should be able to customize a canvas layout.
 
 # limit
 
