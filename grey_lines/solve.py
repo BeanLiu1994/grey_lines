@@ -9,7 +9,7 @@ from tqdm import tqdm
 @dataclass
 class solver_config:
     dispersion: float = 3.0
-    normalizer: float = 0.00001
+    normalizer: float = 0.1
 
 
 default_solver_config = solver_config()

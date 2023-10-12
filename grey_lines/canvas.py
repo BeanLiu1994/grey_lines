@@ -33,17 +33,19 @@ class line:
             intercept = -self.c / self.b
             cos = math.sqrt(1 + slope**2)
             y_range = distance * cos
-            for x in range(int(top_left_dot.x), int(right_bottom_dot.x) + 1):
+            for x in range(math.ceil(top_left_dot.x), math.floor(right_bottom_dot.x) + 1):
                 y_line = slope * x + intercept
-                for y in range(int(y_line - y_range), int(y_line + y_range) + 1):
+                start = max(math.ceil(y_line - y_range), math.ceil(top_left_dot.y))
+                end = min(math.floor(y_line + y_range) + 1, math.floor(right_bottom_dot.y) + 1)
+                for y in range(start, end):
                     if top_left_dot.y <= y <= right_bottom_dot.y:
                         distance_to_line = abs(y-y_line) / cos
                         dots_in_band.append((dot(x, y), distance_to_line))
         elif self.a != 0:
             x_line = -self.c / self.a
-            for x in range(int(x_line - distance), int(x_line + distance) + 1):
+            for x in range(math.ceil(x_line - distance), math.floor(x_line + distance) + 1):
                 if top_left_dot.x <= x <= right_bottom_dot.x:
-                    for y in range(int(top_left_dot.y), int(right_bottom_dot.y) + 1):
+                    for y in range(math.ceil(top_left_dot.y), math.floor(right_bottom_dot.y) + 1):
                         dots_in_band.append((dot(x, y), abs(x-x_line)))
         else:
             raise RuntimeError(f"abnormal line {self}")
@@ -138,3 +140,20 @@ class canvas:
                 continue
             dots.append(dot(i, j))
         return canvas(edge_dots=dots, img_corner_lt=dot(1,1), img_corner_rb=dot(w,h))
+
+    @staticmethod
+    def circle_canvas(w:int, h:int, split_cnt:int = None):
+        split_cnt = split_cnt or 50
+        diameter = math.sqrt(w**2 + h**2)
+        radius = diameter / 2
+        corner_lt = dot(radius - w / 2 + 0.5, radius - h / 2 + 0.5)
+        corner_rb = dot(radius + w / 2 + 0.5, radius + h / 2 + 0.5)
+        dots = []
+        theta_list = np.linspace(0, math.pi*2, num=split_cnt, endpoint=True)
+        for idx, i in enumerate(theta_list):
+            if idx == len(theta_list)-1:
+                continue
+            dot_x = radius + radius * math.cos(i)
+            dot_y = radius + radius * math.sin(i)
+            dots.append(dot(dot_x, dot_y))
+        return canvas(edge_dots=dots, img_corner_lt=corner_lt, img_corner_rb=corner_rb)

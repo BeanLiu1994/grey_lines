@@ -3,10 +3,11 @@ import os
 import numpy as np
 
 if __name__ == "__main__":
-    sz, data, scale = input.load_image(os.path.expanduser("~/yu.png"))
+    sz, data, scale = input.load_image(os.path.expanduser("~/avatar.png"))
 
     print(sz)
-    cvs = canvas.canvas.rectangle_canvas(sz[0], sz[1], 25, 25)
+    # cvs = canvas.canvas.rectangle_canvas(sz[0], sz[1], 17, 11)
+    cvs = canvas.canvas.circle_canvas(sz[0], sz[1], 79)
     print(cvs.edge_dots_cnt())
     print(cvs.lines_cnt())
     print(cvs.canvas_pixel_cnt())
