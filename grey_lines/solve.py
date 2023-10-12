@@ -1,7 +1,7 @@
 from grey_lines.canvas import canvas
 from dataclasses import dataclass
 import numpy as np
-from scipy.sparse import coo_matrix, save_npz, load_npz
+from scipy.sparse import coo_matrix, save_npz, load_npz, eye
 from scipy.sparse.linalg import spsolve
 import cvxpy as cp
 import os
@@ -54,7 +54,7 @@ class solver:
     def prepare_canvas(self, config:solver_config):
         self.relation_matrix = self.get_relation_matrix_from_cache(config)
         self.relation_matrix_T = self.relation_matrix.transpose()
-        self.normal_matrix = self.relation_matrix_T @ self.relation_matrix + np.eye(self._canvas.lines_cnt()) * config.normalizer
+        self.normal_matrix = self.relation_matrix_T @ self.relation_matrix + eye(self._canvas.lines_cnt()) * config.normalizer
 
     def solve(self, input):
         if self._canvas.canvas_pixel_cnt() != len(input):
